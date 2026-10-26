@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Lost & Found Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-content">
+      <h1>Campus Lost & Found</h1>
+      <nav aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#report-section">Report an Item</a></li>
+          <li><a href="#feed-section">Browse Items</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container" tabindex="-1">
+
+    <!-- Live statistics (backend: SQL COUNT queries) -->
+    <section aria-labelledby="stats-heading" class="card-section">
+      <h2 id="stats-heading">Campus Summary</h2>
+      <div class="stats-grid" id="stats" aria-live="polite">
+        <div class="stat"><span class="stat-num" id="stat-total">0</span><span class="stat-label">Total reports</span></div>
+        <div class="stat"><span class="stat-num" id="stat-lost">0</span><span class="stat-label">Lost items</span></div>
+        <div class="stat"><span class="stat-num" id="stat-found">0</span><span class="stat-label">Found items</span></div>
+        <div class="stat"><span class="stat-num" id="stat-claimed">0</span><span class="stat-label">Returned to owners</span></div>
+      </div>
+    </section>
+
+    <!-- REPORT ITEM FORM -->
+    <section id="report-section" class="card-section" aria-labelledby="form-heading">
+      <h2 id="form-heading">Report a Lost or Found Item</h2>
+      <p class="form-instructions">
+        Fields marked with an asterisk (<span aria-hidden="true">*</span>) are required.
+      </p>
+
+      <div id="error-summary" class="error-text" role="alert" tabindex="-1" hidden></div>
+
+      <form id="item-form" novalidate>
+        <div class="form-group">
+          <label for="item-type">Report Type <span aria-hidden="true">*</span></label>
+          <select id="item-type" name="type" required>
+            <option value="FOUND">I Found Something</option>
+            <option value="LOST">I Lost Something</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="item-title">Item Title <span aria-hidden="true">*</span></label>
+          <input type="text" id="item-title" placeholder="e.g., Black Casio Calculator" required aria-describedby="item-title-error">
+          <p id="item-title-error" class="field-error" hidden></p>
+        </div>
+
+        <div class="form-group">
+          <label for="item-category">Category <span aria-hidden="true">*</span></label>
+          <select id="item-category" required>
+            <option value="Electronics">Electronics</option>
+            <option value="ID & Keys">ID & Keys</option>
+            <option value="Books & Notes">Books & Notes</option>
+            <option value="Bottles & Accessories">Bottles & Accessories</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="item-location">Campus Location <span aria-hidden="true">*</span></label>
+          <input type="text" id="item-location" placeholder="e.g., Hostel Block B or Library 2nd Floor" required aria-describedby="item-location-error">
+          <p id="item-location-error" class="field-error" hidden></p>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-info">Your Email / Phone <span aria-hidden="true">*</span></label>
+          <input type="text" id="contact-info" placeholder="e.g., student@campus.edu or 9876543210" required aria-describedby="contact-info-error">
+          <p id="contact-info-error" class="field-error" hidden></p>
+        </div>
+
+        <div id="security-fields">
+          <div class="form-group">
+            <label for="security-question">Verification Question (to prove ownership) <span aria-hidden="true">*</span></label>
+            <input type="text" id="security-question" placeholder="e.g., What name or sticker is on the back?" aria-describedby="security-question-error">
+            <p id="security-question-error" class="field-error" hidden></p>
+          </div>
+
+          <div class="form-group">
+            <label for="security-answer">Expected Answer (hidden from public) <span aria-hidden="true">*</span></label>
+            <input type="text" id="security-answer" placeholder="e.g., Marvel sticker" aria-describedby="security-answer-error">
+            <p id="security-answer-error" class="field-error" hidden></p>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Submit Report</button>
+        <p id="form-success" class="success-text" role="status" hidden></p>
+      </form>
+    </section>
+
+    <!-- ITEMS FEED -->
+    <section id="feed-section" class="card-section" aria-labelledby="feed-heading">
+      <h2 id="feed-heading">Recent Campus Reports</h2>
+
+      <div class="filter-bar">
+        <div class="form-group">
+          <label for="search-input">Search by keyword or location</label>
+          <input type="search" id="search-input" placeholder="e.g., Casio, Library, Keys...">
+        </div>
+        <div class="form-group">
+          <label for="filter-type">Filter by type</label>
+          <select id="filter-type">
+            <option value="ALL">All Reports</option>
+            <option value="LOST">Lost Items Only</option>
+            <option value="FOUND">Found Items Only</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="items-grid" class="items-grid" aria-live="polite"></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Campus Lost & Found Portal. Built to WCAG 2.1 AA accessibility guidelines.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
